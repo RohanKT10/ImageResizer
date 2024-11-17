@@ -1,0 +1,24 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background-color: #f4f4f4;
+    padding: 20px;
+}
+
+h1 {
+    color: #333;
+}
+
+form {
+    margin: 20px;
+}
+
+input[type="file"],
+input[type="number"],
+select {
+    margin: 10px;
+}
+
+input[type="submit"] {
+    padding: 10px 20px;
+}

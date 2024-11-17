@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>Resize Image</title>
+    <style>
+        .resize-container {
+            max-width: 400px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body class="container mt-5">
+    <div class="resize-container">
+        <h1 class="mb-4">Resize Image</h1>
+        <form action="" method="POST">
+            <div class="mb-3">
+                <label for="operation">Operation:</label>
+                <select name="operation" class="form-select" id="operation-select">
+                    <option value="resize">Resize</option>
+                    <option value="rotate">Rotate</option>
+                    <option value="color_scale">Change Color Scale</option>
+                </select>
+            </div>
+
+            <!-- Width and Height Inputs -->
+            <div id="dimensions-section">
+                <div class="mb-3">
+                    <label for="width">Width:</label>
+                    <input type="number" name="width" class="form-control" id="width-input">
+                </div>
+                <div class="mb-3">
+                    <label for="height">Height:</label>
+                    <input type="number" name="height" class="form-control" id="height-input">
+                </div>
+            </div>
+
+            <!-- Checkbox to keep original size for rotate and grayscale -->
+            <div id="keep-original-section" class="form-check mb-3 hidden">
+                <input class="form-check-input" type="checkbox" name="keep_original_size" id="keepOriginalSize">
+                <label class="form-check-label" for="keepOriginalSize">
+                    Keep original size
+                </label>
+            </div>
+
+            <div id="rotate-options" class="mb-3 hidden">
+                <label for="angle">Angle:</label>
+                <input type="number" name="angle" class="form-control">
+            </div>
+            <div id="color-options" class="mb-3 hidden">
+                <label for="color_scale">Color Scale:</label>
+                <select name="color_scale" class="form-select">
+                    <option value="gray">Grayscale</option>
+                    <option value="red">Red Channel</option>
+                    <option value="green">Green Channel</option>
+                    <option value="blue">Blue Channel</option>
+                </select>
+            </div>
+
+            <button type="submit" class="btn btn-success" style="width: 150px;">Process</button>
+        </form>
+    </div>
+
+    <script>
+        const operationSelect = document.getElementById('operation-select');
+        const keepOriginalSection = document.getElementById('keep-original-section');
+        const dimensionsSection = document.getElementById('dimensions-section');
+        const rotateOptions = document.getElementById('rotate-options');
+        const colorOptions = document.getElementById('color-options');
+
+        operationSelect.addEventListener('change', function() {
+            const operation = this.value;
+            rotateOptions.classList.toggle('hidden', operation !== 'rotate');
+            colorOptions.classList.toggle('hidden', operation !== 'color_scale');
+            keepOriginalSection.classList.toggle('hidden', operation === 'resize');
+            dimensionsSection.style.display = (operation === 'resize' || !keepOriginalSection.firstElementChild.checked) ? 'block' : 'none';
+        });
+
+        // Toggle dimensions visibility based on the checkbox
+        document.getElementById('keepOriginalSize').addEventListener('change', function() {
+            dimensionsSection.style.display = this.checked ? 'none' : 'block';
+        });
+    </script>
+</body>
+</html>
+
+
+
+
+
